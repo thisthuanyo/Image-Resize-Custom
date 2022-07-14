@@ -1,0 +1,245 @@
+﻿
+@{
+    ViewBag.Title = "IMAGE RESIZE CUSTOM v1";
+}
+
+<style>
+    .input-group-text {
+        width: 91px;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        background: linear-gradient(to right, #8E24AA, #b06ab3);
+        color: #D7D7EF;
+        font-family: monospace;
+    }
+
+    .left-panel {
+        height: 100%;
+        width: 500px;
+        justify-content: center;
+        color: black;
+        background-color: #f8f8f8;
+        border-radius: 15px;
+        padding: 20px
+    }
+
+    .right-panel {
+        height: 100%;
+        width: 500px;
+        justify-content: center;
+        color: white;
+        margin: 5px 30px;
+    }
+
+    .file-drop-area {
+        position: relative;
+        align-items: center;
+        max-width: 100%;
+        padding: 25px;
+        border-radius: 3px;
+        transition: 0.2s;
+    }
+
+    .choose-file-button {
+        flex-shrink: 0;
+        background-color: rgba(128,0,128,0.2);
+        border: 1px solid rgba(128,0,128,0.2);
+        border-radius: 3px;
+        padding: 8px 15px;
+        margin-right: 10px;
+        font-size: 12px;
+        text-transform: uppercase;
+        text-align: center
+    }
+
+    .file-message {
+        font-size: 1.4rem;
+        font-weight: 300;
+        line-height: 1.4;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center
+    }
+
+    .file-input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        cursor: pointer;
+        opacity: 0;
+    }
+
+    .mt-100 {
+        margin-top: 100px;
+    }
+
+    .mt-50 {
+        margin-top: 50px;
+    }
+
+    .drag-icon {
+        width: 200px;
+        height: 200px;
+        position: relative;
+        left: 25%
+    }
+
+    .right-panel-text {
+        display: flex;
+        flex-flow: row wrap
+    }
+
+    .input-value {
+        height: 35px;
+        font-size: 0.9rem;
+    }
+
+    .icon-link {
+        position: relative;
+        top: 27px;
+        left: -6px;
+    }
+
+    #input-section .col-md-3 {
+        width: 110px
+    }
+
+    #input-section .col-md-1 {
+        width: 40px
+    }
+
+    .close {
+        visibility: hidden !important
+    }
+</style>
+
+<script src="https://kit.fontawesome.com/42e3e833b9.js"
+        crossorigin="anonymous"></script>
+
+<div class="container d-flex mt-100">
+    <div class="row">
+        <div class="col-md-12 d-flex">
+            <div class="left-panel shadow-lg">
+                <div class="file-drop-area" id="drag-section">
+                    <div class="drag-icon">
+                        <img src="~/Assets/49665-200.png" />
+                    </div>
+                    <div class="row">
+                        <span class="file-message">Drag and drop files here</span>
+                        <span class="choose-file-button mt-100">Or choose your files</span>
+                        <input class="file-input" type="file" multiple id="formFileMultiple">
+                    </div>
+                </div>
+                <div id="image-section" style="display:none">
+
+                    <div class="carousel-frame">
+                        <div class="carousel-slide">
+                        </div>
+                        <i class="carousel-prev fas fa-chevron-left"></i>
+                        <i class="carousel-next fas fa-chevron-right"></i>
+                        <ol class="carousel-dots">
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="right-panel">
+                <div class="right-panel-text">
+                    <h2>IMAGE RESIZE CUSTOM v1</h2>
+                    <span class="ml-2">Developed by <strong>Thuanppt2</strong></span>
+                    <span class="mt-2">Change the dimensions of any photo.</span>
+                </div>
+                <div class="mt-50" id="input-section" style="display:none">
+                    <div class="row">
+                        <div class="input-group-prepend col-md-3">
+                            <span class="input-text">Width:</span>
+                            <input type="number" min="0" class="form-control input-value" id="width">
+                        </div>
+                        <div class=" col-md-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" fill="currentColor" class="bi bi-link icon-link" viewBox="0 0 16 16">
+                                <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z" />
+                                <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z" />
+                            </svg>
+                        </div>
+                        <div class="input-group-prepend col-md-3">
+                            <span class="input-text">Height:</span>
+                            <input type="number" min="0" class="form-control input-value" id="heigth">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="input-group-prepend col-md-6">
+                            <span class="input-text">Background Color:</span>
+                            <b id="text-color"></b>
+                            <input type="color" class="form-control input-value" id="color" value="#ffffff">
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-2">
+                            <span class="input-text" id="text-color">Rename:</span>
+                        </div>
+                        <div class="col-md-3" style="margin: 2px 0 0 -16px;">
+                            <input type="radio" id="current-name" name="name-save-option" value="1" checked>
+                            <label for="current-name">Current</label><br>
+                            <input type="radio" id="jpg-type" name="file-type-option" value="1" checked>
+                            <label for="jpg-type">.jpg</label><br>
+                        </div>
+
+                        <div class="col-md-3" style="margin: 2px 0 0 -16px;">
+                            <input type="radio" id="custom-name" name="name-save-option" value="2">
+                            <label for="custom-name">Custom</label><br>
+                            <input type="radio" id="png-type" name="file-type-option" value="2">
+                            <label for="png-type">.png</label><br>
+                        </div>
+                    </div>
+                    <div class="row mt-1" id="input-custom-name" style="visibility:hidden">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="name" placeholder="Enter file name" onkeypress="if (event.key.replace(/[^\w\-.]/g,'')=='') event.preventDefault();">
+                        </div>
+                    </div>
+
+                    <span class="btn btn-primary mt-3" type="submit" id="btn-download" style="width: 237px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                        </svg>
+                        Download
+                    </span>
+                </div>
+
+                <div id="ImageSelected" hidden></div>
+                <div id="ImageRegionShow"></div>
+                <div id="ImageRegionDownload" hidden></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="loader-body">
+    <div class="wheel-and-hamster" role="img" aria-label="Orange and tan hamster running in a metal wheel">
+        <div class="wheel"></div>
+        <div class="hamster">
+            <div class="hamster__body">
+                <div class="hamster__head">
+                    <div class="hamster__ear"></div>
+                    <div class="hamster__eye"></div>
+                    <div class="hamster__nose"></div>
+                </div>
+                <div class="hamster__limb hamster__limb--fr"></div>
+                <div class="hamster__limb hamster__limb--fl"></div>
+                <div class="hamster__limb hamster__limb--br"></div>
+                <div class="hamster__limb hamster__limb--bl"></div>
+                <div class="hamster__tail"></div>
+            </div>
+        </div>
+        <div class="spoke"></div>
+    </div>
+</div>
+
